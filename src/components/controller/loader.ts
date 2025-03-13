@@ -1,5 +1,14 @@
+import { IApiKey } from "../../types";
+import { TResMethod, TEndpoints } from "../../types";
+interface IOptions extends IApiKey {
+  [index: string]: string,
+}
+
 class Loader {
-    constructor(baseLink, options) {
+    baseLink: string | undefined;
+    options: IApiKey;
+
+    constructor(baseLink: string| undefined, options: IApiKey) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -23,8 +32,8 @@ class Loader {
         return res;
     }
 
-    makeUrl(options, endpoint) {
-        const urlOptions = { ...this.options, ...options };
+    makeUrl(options: object, endpoint) {
+        const urlOptions: IOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
@@ -34,7 +43,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
+    load(method: TResMethod, endpoint: TEndpoints, callback, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
