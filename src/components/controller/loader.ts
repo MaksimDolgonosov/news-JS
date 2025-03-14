@@ -1,8 +1,19 @@
-import { IApiKey } from "../../types";
+import { IApiKey, IDataNews, IGetResp } from "../../types";
 import { TResMethod, TEndpoints } from "../../types";
+
 interface IOptions extends IApiKey {
-  [index: string]: string,
+  [index: string]: string | undefined,
 }
+
+
+
+interface IResponseStatus {
+    ok: boolean,
+    status: number,
+    statusText: string,
+    json: ()=>object
+}
+
 
 class Loader {
     baseLink: string | undefined;
@@ -14,7 +25,7 @@ class Loader {
     }
 
     getResp(
-        { endpoint, options = {} },
+        { endpoint, options = {} }: IGetResp,
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -22,7 +33,7 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: IResponseStatus) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -32,7 +43,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: object, endpoint) {
+    makeUrl(options: object, endpoint: TEndpoints) {
         const urlOptions: IOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -43,7 +54,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: TResMethod, endpoint: TEndpoints, callback, options = {}) {
+    load(method: TResMethod, endpoint: TEndpoints, callback: (data?:IDataNews)=>void, options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
