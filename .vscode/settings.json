@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "diffEditor.experimental.showEmptyDecorations": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.formatOnType": true
+}

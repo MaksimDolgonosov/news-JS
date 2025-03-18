@@ -2,21 +2,18 @@ import AppLoader from './appLoader';
 import { Endpoints } from '../../types';
 import { IDataNews } from '../../types';
 
-
 class AppController extends AppLoader {
-
-
-    getSources(callback:(data?: IDataNews | undefined)=>void) {
+    getSources(callback: (data?: IDataNews | undefined) => void) {
         super.getResp(
             {
                 endpoint: Endpoints.SOURCES,
             },
             callback
         );
-    };
+    }
 
-    getNews(e: Event, callback: (data?: IDataNews | undefined)=>void) {
-        let target  = e.target as HTMLElement;
+    getNews(e: Event, callback: (data?: IDataNews | undefined) => void) {
+        let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
         while (target !== newsContainer) {
@@ -36,7 +33,7 @@ class AppController extends AppLoader {
                 }
                 return;
             }
-            
+
             target = target.parentNode as HTMLElement;
         }
     }

@@ -1,25 +1,22 @@
-import { IApiKey, IDataNews, IGetResp } from "../../types";
-import { TResMethod, TEndpoints } from "../../types";
+import { IApiKey, IDataNews, IGetResp } from '../../types';
+import { TResMethod, TEndpoints } from '../../types';
 
 interface IOptions extends IApiKey {
-  [index: string]: string | undefined,
+    [index: string]: string | undefined;
 }
-
-
 
 interface IResponseStatus {
-    ok: boolean,
-    status: number,
-    statusText: string,
-    json: ()=>object
+    ok: boolean;
+    status: number;
+    statusText: string;
+    json: () => object;
 }
 
-
 class Loader {
-  private baseLink: string | undefined;
-  private options: IApiKey;
+    private baseLink: string | undefined;
+    private options: IApiKey;
 
-    constructor(baseLink: string| undefined, options: IApiKey) {
+    constructor(baseLink: string | undefined, options: IApiKey) {
         this.baseLink = baseLink;
         this.options = options;
     }
@@ -55,7 +52,12 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: TResMethod, endpoint: TEndpoints, callback: (data:IDataNews | undefined)=>void, options = {}): void {
+    load(
+        method: TResMethod,
+        endpoint: TEndpoints,
+        callback: (data: IDataNews | undefined) => void,
+        options = {}
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
