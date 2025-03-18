@@ -1,21 +1,21 @@
 import AppLoader from './appLoader';
-//import { IGetResp } from '../../types';
+import { Endpoints } from '../../types';
 import { IDataNews } from '../../types';
-//type IGetRespController = Pick<IGetResp,"endpoint">
+
 
 class AppController extends AppLoader {
 
 
-    getSources(callback:(data?: IDataNews)=>void) {
+    getSources(callback:(data?: IDataNews | undefined)=>void) {
         super.getResp(
             {
-                endpoint: 'sources',
+                endpoint: Endpoints.SOURCES,
             },
             callback
         );
     };
 
-    getNews(e: Event, callback: (data?: IDataNews)=>void) {
+    getNews(e: Event, callback: (data?: IDataNews | undefined)=>void) {
         let target  = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
@@ -26,7 +26,7 @@ class AppController extends AppLoader {
                     newsContainer.setAttribute('data-source', sourceId!);
                     super.getResp(
                         {
-                            endpoint: 'everything',
+                            endpoint: Endpoints.EVERYTHING,
                             options: {
                                 sources: sourceId,
                             },

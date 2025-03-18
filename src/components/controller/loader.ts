@@ -16,8 +16,8 @@ interface IResponseStatus {
 
 
 class Loader {
-    baseLink: string | undefined;
-    options: IApiKey;
+  private baseLink: string | undefined;
+  private options: IApiKey;
 
     constructor(baseLink: string| undefined, options: IApiKey) {
         this.baseLink = baseLink;
@@ -26,6 +26,7 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: IGetResp,
+        // callback: ()=>void
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -54,7 +55,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: TResMethod, endpoint: TEndpoints, callback: (data?:IDataNews)=>void, options = {}): void {
+    load(method: TResMethod, endpoint: TEndpoints, callback: (data:IDataNews | undefined)=>void, options = {}): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

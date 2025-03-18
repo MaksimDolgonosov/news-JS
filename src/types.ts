@@ -12,8 +12,8 @@ export interface IGetResp {
 };
 
 export interface IDataNews {
-    sources?: String[],
-    articles?: IArticlesData[]
+    sources?: ISourcesData[] | [],
+    articles?: IArticlesData[] | []
 };
 
 
@@ -33,5 +33,15 @@ export interface IArticlesData {
 
 export interface ISourcesData {
   id: string,
-name: string,description: "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com.",url: "https://abcnews.go.com",category: "general",language: "en",country: "us"
+  name: string,
+  description: string,
+  url: string,
+  category: string,
+  language: string,
+  country: string
+}
+
+export enum Endpoints {
+  SOURCES = "sources",
+  EVERYTHING = "everything"
 }
