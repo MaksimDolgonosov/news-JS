@@ -1,13 +1,13 @@
 {
-    "plugins": ["prettier", "import"],
-    "extends": [
-        "plugin:prettier/recommended",
-        "prettier",
-        "@typescript-eslint: tsEslint.plugin"
-    ],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
     "parserOptions": {
         "ecmaVersion": 2020,
-        "sourceType": "module"
+        "sourceType": "module",
+        "projectService": true,
+        "tsconfigRootDir": "__dirname"
+         
     },
     "env": {
         "es6": true,
@@ -25,6 +25,16 @@
     },
     "globals": {
         "module": true
+    },
+    "root": true,
+    // "ignorePatterns": [
+    //     "*.js"
+    // ]
+      "overrides": [
+    {
+      "files": ["*.js"],
+      "extends": ["plugin:@typescript-eslint/disable-type-checked"]
     }
+  ]
 }
 

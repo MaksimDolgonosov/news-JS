@@ -21,7 +21,7 @@ class Loader {
         this.options = options;
     }
 
-    getResp(
+    protected getResp(
         { endpoint, options = {} }: IGetResp,
         // callback: ()=>void
         callback = () => {
@@ -31,7 +31,7 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res: IResponseStatus) {
+    protected errorHandler(res: IResponseStatus) {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -41,7 +41,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: object, endpoint: TEndpoints) {
+    protected makeUrl(options: object, endpoint: TEndpoints) {
         const urlOptions: IOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -52,7 +52,7 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(
+    protected load(
         method: TResMethod,
         endpoint: TEndpoints,
         callback: (data: IDataNews | undefined) => void,
